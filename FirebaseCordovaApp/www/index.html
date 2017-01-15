@@ -5,24 +5,95 @@
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
         For details, see http://go.microsoft.com/fwlink/?LinkID=617521
     -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.googleapis.com/ https://www.gstatic.com/ https://apis.google.com/ https://accounts.google.com/ https://*.googleusercontent.com/ https://content.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com data: gap: https://ssl.gstatic.com https://*.firebaseio.com https://apis.google.com/ https://*.firebaseapp.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
         
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>FirebaseCordovaApp</title>
+        <!-- Web Application Manifest -->
+        <link rel="manifest" href="manifest.json">
+
+        <!-- Add to homescreen for Chrome on Android -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="application-name" content="Friendly Chat">
+        <meta name="theme-color" content="#303F9F">
+
+        <!-- Add to homescreen for Safari on iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="Friendly Chat">
+        <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+            <!-- Header section containing logo -->
+            <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
+                <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+                    <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+                        <h3><i class="material-icons">chat_bubble_outline</i> Friendly Chat</h3>
+                    </div>
+                    <div id="user-container">
+                        <div hidden id="user-pic"></div>
+                        <div hidden id="user-name"></div>
+                        <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                            Sign-out
+                        </button>
+                        <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                            <i class="material-icons">account_circle</i>Sign-in with Google
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+
+                    <!-- Messages container -->
+                    <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            <div id="messages">
+                                <span id="message-filler"></span>
+                            </div>
+                            <form id="message-form" action="#">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="message">
+                                    <label class="mdl-textfield__label" for="message">Message...</label>
+                                </div>
+                                <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                                    Send
+                                </button>
+                            </form>
+                            <form id="image-form" action="#">
+                                <input id="mediaCapture" type="file" accept="image/*,capture=camera">
+                                <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+                                    <i class="material-icons">image</i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+                        <div class="mdl-snackbar__text"></div>
+                        <button class="mdl-snackbar__action" type="button"></button>
+                    </div>
+
+                </div>
+            </main>
         </div>
+
+        <!-- Firebase -->
+        <!-- ***********************************************************************************************************************
+         * TODO(DEVELOPER): Paste the initialization snippet from: Firebase Console > Overview > Add Firebase to your web app. *
+         *********************************************************************************************************************** -->
+
+        <script src="https://www.gstatic.com/firebasejs/3.6.5/firebase.js"></script>
+        <script src="scripts/firebase_conf.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="scripts/platformOverrides.js"></script>
         <script type="text/javascript" src="scripts/index.js"></script>
+        <script src="scripts/main.js"></script>
     </body>
 </html>
